@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="LoginButton">I\'m all about that bass</string>
+  <string name="Username">Username</string>
+  <string name="Password">Password</string>
+  <string name="Server">Server</string>
+  <string name="ApplicationName">Beats</string>
+</resources>
