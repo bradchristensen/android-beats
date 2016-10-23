@@ -9,23 +9,32 @@
         android:layout_height="wrap_content"
         android:id="@+id/EditTextServer"
         android:hint="@string/Server"
-        android:inputType="textUri" />
+        android:inputType="textUri"
+        android:singleLine="true" />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/EditTextUsername"
-        android:hint="@string/Username" />
+        android:hint="@string/Username"
+        android:singleLine="true" />
     <EditText
         android:inputType="textPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/EditTextPassword"
-        android:hint="@string/Password" />
+        android:hint="@string/Password"
+        android:singleLine="true" />
     <Button
         android:id="@+id/ButtonLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/LoginButton" />
+    <ImageView
+        android:src="@drawable/cherry"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:id="@+id/CherryPic"
+        android:layout_margin="64dp" />
     <TextView
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_width="match_parent"

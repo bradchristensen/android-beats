@@ -1,6 +1,5 @@
 ﻿using Android.App;
 using Android.OS;
-using Android.Runtime;
 using Android.Widget;
 using Beats.Xamarin.Android.App.Exceptions;
 using Beats.Xamarin.Android.App.Helpers;
@@ -8,11 +7,8 @@ using Beats.Xamarin.Datastore;
 using Beats.Xamarin.Datastore.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
-using Xamarin.Android.Net;
 
 namespace Beats.Xamarin.Android.App
 {
@@ -32,8 +28,6 @@ namespace Beats.Xamarin.Android.App
             base.OnCreate(bundle);
 
             _repository = new Repository();
-
-            //ServicePointManager.ServerCertificateValidationCallback += (o, certificate, chain, errors) => true;
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
