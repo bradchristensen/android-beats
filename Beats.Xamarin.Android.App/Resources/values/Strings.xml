@@ -5,4 +5,6 @@
   <string name="Password">Password</string>
   <string name="Server">Server</string>
   <string name="ApplicationName">Beats</string>
+  <string name="DrawerOpen">Open</string>
+  <string name="DrawerClosed">Closed</string>
 </resources>
