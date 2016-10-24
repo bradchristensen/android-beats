@@ -1,14 +1,11 @@
 ﻿using Android.App;
 using Android.OS;
 using Android.Widget;
-using Beats.Xamarin.Android.App.Exceptions;
-using Beats.Xamarin.Android.App.Helpers;
 using Beats.Xamarin.Datastore;
 using Beats.Xamarin.Datastore.Models;
+using Beats.Xamarin.WebApiClient;
+using Beats.Xamarin.WebApiClient.Exceptions;
 using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Threading.Tasks;
 
 namespace Beats.Xamarin.Android.App
 {
@@ -23,11 +20,17 @@ namespace Beats.Xamarin.Android.App
 
         private Repository _repository;
 
+        private CherryMusicClient _cherryMusicClient;
+
+        public MainActivity()
+        {
+            _repository = new Repository();
+            _cherryMusicClient = new CherryMusicClient();
+        }
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-
-            _repository = new Repository();
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
@@ -71,7 +74,7 @@ namespace Beats.Xamarin.Android.App
 
                 try
                 {
-                    var cookie = await Authenticate(_server, _username, _password);
+                    var cookie = await _cherryMusicClient.Authenticate(_server, _username, _password);
 
                     _sessionId = cookie.Value;
                     _sessionExpires = new DateTimeOffset(cookie.Expires);
@@ -88,6 +91,12 @@ namespace Beats.Xamarin.Android.App
                     loginButton.Text = "Logged in!";
                     loginButton.Enabled = false;
                     textViewLoginStatus.Text = _sessionId;
+
+                    var dirListing = await _cherryMusicClient.GetDirectoryListing();
+                    foreach (var dir in dirListing)
+                    {
+                        textViewLoginStatus.Text += dir.Label;
+                    }
                 }
                 catch (LoginFailedException)
                 {
@@ -103,28 +112,6 @@ namespace Beats.Xamarin.Android.App
             Button loginButton = FindViewById<Button>(Resource.Id.ButtonLogin);
             loginButton.Text = GetString(Resource.String.LoginButton);
             loginButton.Enabled = true;
-        }
-
-        private static async Task<Cookie> Authenticate(string server, string username, string password)
-        {
-            using (var client = new HttpServiceHelper())
-            {
-                var response = await client.PostAsync(server, new Dictionary<string, string>
-                {
-                    ["username"] = username,
-                    ["password"] = password,
-                    ["login"] = "login",
-                });
-
-                var content = await response.Content.ReadAsStringAsync();
-
-                if (content.Contains("<title>CherryMusic | Login</title>"))
-                {
-                    throw new LoginFailedException();
-                }
-
-                return response.Cookies["session_id"];
-            }
         }
     }
 }

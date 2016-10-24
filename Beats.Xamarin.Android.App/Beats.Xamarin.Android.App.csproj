@@ -68,13 +68,10 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Exceptions\LoginFailedException.cs" />
-    <Compile Include="Helpers\HttpServiceHelper.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -110,6 +107,10 @@
     <ProjectReference Include="..\Beats.Xamarin.Datastore\Beats.Xamarin.Datastore.csproj">
       <Project>{C4A9C39D-8E8F-4668-8D2D-C24BEE2ACD2E}</Project>
       <Name>Beats.Xamarin.Datastore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Beats.Xamarin.WebApiClient\Beats.Xamarin.WebApiClient.csproj">
+      <Project>{dfdfedff-7248-41b2-80fb-ea3da4c10cff}</Project>
+      <Name>Beats.Xamarin.WebApiClient</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

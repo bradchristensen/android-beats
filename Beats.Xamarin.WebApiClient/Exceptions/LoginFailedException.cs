@@ -1,6 +1,6 @@
 using System;
 
-namespace Beats.Xamarin.Android.App.Exceptions
+namespace Beats.Xamarin.WebApiClient.Exceptions
 {
     public class LoginFailedException : Exception
     {
