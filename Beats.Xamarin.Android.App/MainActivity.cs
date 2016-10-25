@@ -4,17 +4,10 @@ using Android.OS;
 using Android.Support.V4.App;
 using Android.Support.V4.Widget;
 using Android.Views;
-using Android.Widget;
-using Beats.Xamarin.Android.App.Views;
-using Beats.Xamarin.Datastore;
-using Beats.Xamarin.Datastore.Models;
-using Beats.Xamarin.WebApiClient;
-using Beats.Xamarin.WebApiClient.Exceptions;
-using System;
-using System.Reflection;
+using Beats.Xamarin.Droid.App.Views;
 using Fragment = Android.App.Fragment;
 
-namespace Beats.Xamarin.Android.App
+namespace Beats.Xamarin.Droid.App
 {
     [Activity(Label = "@string/ApplicationName", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity

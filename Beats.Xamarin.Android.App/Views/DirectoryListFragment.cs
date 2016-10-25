@@ -1,4 +1,5 @@
 using Android.App;
+using Android.Media;
 using Android.OS;
 using Android.Support.V7.Widget;
 using Android.Views;
@@ -11,7 +12,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using static Android.Support.V7.Widget.RecyclerView;
 
-namespace Beats.Xamarin.Android.App.Views
+namespace Beats.Xamarin.Droid.App.Views
 {
     public class DirectoryListFragment : Fragment
     {
@@ -19,6 +20,7 @@ namespace Beats.Xamarin.Android.App.Views
         private CherryMusicClient _cherryMusicClient;
         private View _rootView;
         private string _currentDirectory = null;
+        private MediaPlayer _player = new MediaPlayer();
 
         public DirectoryListFragment() { }
 
@@ -65,6 +67,18 @@ namespace Beats.Xamarin.Android.App.Views
                         if (item.Type == "dir")
                         {
                             ((MainActivity)Activity).ReplaceFragment(new DirectoryListFragment(item.Path));
+                        }
+                        else if (item.Type == "file")
+                        {
+                            Dictionary<string, string> headers = new Dictionary<string, string>();
+                            headers.Add("Cookie", $"session_id={deets.SessionId}\r\n");
+
+                            _player.Reset();
+                            _player.SetAudioStreamType(Stream.Music);
+                            var uri = Android.Net.Uri.Parse($"{deets.ServerUrl}/serve/{item.UrlPath}");
+                            _player.SetDataSource(Context, uri, headers);
+                            _player.Prepare();
+                            _player.Start();
                         }
                     };
                 });

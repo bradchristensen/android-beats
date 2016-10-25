@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beats.Xamarin.Android.App", "Beats.Xamarin.Android.App\Beats.Xamarin.Android.App.csproj", "{055FE1DD-A92A-4F59-BD73-EF64383AEB27}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beats.Xamarin.Droid.App", "Beats.Xamarin.Android.App\Beats.Xamarin.Droid.App.csproj", "{055FE1DD-A92A-4F59-BD73-EF64383AEB27}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beats.Xamarin.Datastore", "Beats.Xamarin.Datastore\Beats.Xamarin.Datastore.csproj", "{C4A9C39D-8E8F-4668-8D2D-C24BEE2ACD2E}"
 EndProject

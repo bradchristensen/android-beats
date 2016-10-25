@@ -8,7 +8,7 @@ using Beats.Xamarin.WebApiClient;
 using Beats.Xamarin.WebApiClient.Exceptions;
 using System;
 
-namespace Beats.Xamarin.Android.App.Views
+namespace Beats.Xamarin.Droid.App.Views
 {
     public class LoginFragment : Fragment
     {
