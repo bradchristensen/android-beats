@@ -103,6 +103,7 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\DirectoryListFragment.cs" />
     <Compile Include="Views\LoginFragment.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -116,6 +117,12 @@
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <AndroidResource Include="Resources\layout\DrawerLayout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\DirectoryListFragment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\DirectoryListListItem.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

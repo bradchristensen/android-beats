@@ -60,12 +60,21 @@ namespace Beats.Xamarin.WebApiClient
             }
         }
 
-        public async Task<DirectoryListing> GetDirectoryListing()
+        private async Task<DirectoryListing> GetDirectoryListing(string directory, string filterString)
         {
             return await _httpClient.PostAsync<DirectoryListing>(
                 $"{_server}/api/compactlistdir",
-                new CompactListDirectory { Directory = ".", FilterString = "" }
+                new CompactListDirectory { Directory = directory, FilterString = filterString }
             );
+        }
+
+        public async Task<List<DirectoryListingItem>> GetAllDirectories()
+        {
+            var alphaList = await GetDirectoryListing("", "");
+
+            var results = await Task.WhenAll(alphaList.Select(alpha => GetDirectoryListing(".", alpha.Label)).ToArray());
+
+            return results.SelectMany(x => x).ToList();
         }
 
         public void Dispose()

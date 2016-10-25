@@ -11,7 +11,7 @@ using Beats.Xamarin.Datastore.Models;
 using Beats.Xamarin.WebApiClient;
 using Beats.Xamarin.WebApiClient.Exceptions;
 using System;
-
+using System.Reflection;
 using Fragment = Android.App.Fragment;
 
 namespace Beats.Xamarin.Android.App
@@ -29,12 +29,9 @@ namespace Beats.Xamarin.Android.App
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.DrawerLayout);
 
-            var fragment = new LoginFragment();
-
-            var fragmentManager = FragmentManager;
-            var ft = fragmentManager.BeginTransaction();
-            ft.Replace(Resource.Id.ContentFrame, fragment);
-            ft.Commit();
+            FragmentManager.BeginTransaction()
+                .Replace(Resource.Id.ContentFrame, new LoginFragment())
+                .Commit();
 
             _drawerLayout = FindViewById<DrawerLayout>(Resource.Id.DrawerLayout);
 
@@ -97,6 +94,15 @@ namespace Beats.Xamarin.Android.App
             base.OnConfigurationChanged(newConfig);
             // Pass any configuration change to the drawer toggls
             _drawerToggle.OnConfigurationChanged(newConfig);
+        }
+
+        public void ReplaceFragment(Fragment fragment)
+        {
+            // Insert the fragment by replacing any existing fragment
+            FragmentManager.BeginTransaction()
+                .Replace(Resource.Id.ContentFrame, fragment)
+                .AddToBackStack("dir")
+                .Commit();
         }
     }
 }

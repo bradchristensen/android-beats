@@ -88,13 +88,8 @@ namespace Beats.Xamarin.Android.App.Views
 
                     loginButton.Text = "Logged in!";
                     loginButton.Enabled = false;
-                    textViewLoginStatus.Text = _sessionId;
 
-                    var dirListing = await _cherryMusicClient.GetDirectoryListing();
-                    foreach (var dir in dirListing)
-                    {
-                        textViewLoginStatus.Text += dir.Label;
-                    }
+                    ((MainActivity)Activity).ReplaceFragment(new DirectoryListFragment());
                 }
                 catch (LoginFailedException)
                 {

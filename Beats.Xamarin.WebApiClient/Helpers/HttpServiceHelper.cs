@@ -39,7 +39,14 @@ namespace Beats.Xamarin.WebApiClient.Helpers
 
         public HttpServiceHelper(string sessionId, string server) : this()
         {
-            _cookieContainer.Add(new Cookie("session_id", sessionId, "/", server));
+            var cookies = _cookieContainer
+                .GetCookies(new Uri(server))
+                .Cast<Cookie>()
+                .ToDictionary(cookie => cookie.Name);
+            if (cookies.Count == 0)
+            {
+                _cookieContainer.Add(new Cookie("session_id", sessionId, "/", new Uri(server).Host));
+            }
         }
 
         private async Task<HttpServiceHelperResponse> SendAsync(HttpMethod method, string uri, HttpContent postBody)
@@ -55,6 +62,8 @@ namespace Beats.Xamarin.WebApiClient.Helpers
                 Cookies = _cookieContainer
                     .GetCookies(new Uri(uri))
                     .Cast<Cookie>()
+                    .GroupBy(cookie => cookie.Name)
+                    .Select(cookie => cookie.First())
                     .ToDictionary(cookie => cookie.Name),
                 StatusCode = response.StatusCode,
             };
