@@ -60,7 +60,7 @@ namespace Beats.Xamarin.WebApiClient
             }
         }
 
-        private async Task<DirectoryListing> GetDirectoryListing(string directory, string filterString)
+        public async Task<List<DirectoryListingItem>> GetDirectoryListing(string directory, string filterString)
         {
             return await _httpClient.PostAsync<DirectoryListing>(
                 $"{_server}/api/compactlistdir",
