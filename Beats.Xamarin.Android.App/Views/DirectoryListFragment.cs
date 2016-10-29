@@ -1,10 +1,12 @@
 using Android.App;
+using Android.Content;
 using Android.Media;
 using Android.OS;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using Beats.Xamarin.Datastore;
+using Beats.Xamarin.Droid.App.Services;
 using Beats.Xamarin.WebApiClient;
 using Beats.Xamarin.WebApiClient.Contracts.Response;
 using System;
@@ -20,18 +22,12 @@ namespace Beats.Xamarin.Droid.App.Views
         private CherryMusicClient _cherryMusicClient;
         private View _rootView;
         private string _currentDirectory = null;
-        private MediaPlayer _player = new MediaPlayer();
 
         public DirectoryListFragment() { }
 
         public DirectoryListFragment(string currentDirectory)
         {
             _currentDirectory = currentDirectory;
-        }
-
-        public override void OnCreate(Bundle savedInstanceState)
-        {
-            base.OnCreate(savedInstanceState);
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -53,10 +49,9 @@ namespace Beats.Xamarin.Droid.App.Views
                 _cherryMusicClient.GetAllDirectories() :
                 _cherryMusicClient.GetDirectoryListing(_currentDirectory, "");
 
-            task.ContinueWith(t =>
+            task.ContinueWith((Task<List<DirectoryListingItem>> t) =>
             {
-                // TODO: Only run if the UI still exists
-                Activity.RunOnUiThread(() =>
+                Activity?.RunOnUiThread(() =>
                 {
                     var adapter = new DirectoryAdapter(t.Result, Activity);
                     recycler.SetAdapter(adapter);
@@ -70,15 +65,7 @@ namespace Beats.Xamarin.Droid.App.Views
                         }
                         else if (item.Type == "file")
                         {
-                            Dictionary<string, string> headers = new Dictionary<string, string>();
-                            headers.Add("Cookie", $"session_id={deets.SessionId}\r\n");
-
-                            _player.Reset();
-                            _player.SetAudioStreamType(Stream.Music);
-                            var uri = Android.Net.Uri.Parse($"{deets.ServerUrl}/serve/{item.UrlPath}");
-                            _player.SetDataSource(Context, uri, headers);
-                            _player.Prepare();
-                            _player.Start();
+                            ((MainActivity)Activity).BoundAudioService.PlayTrack($"{deets.ServerUrl}/serve/{item.UrlPath}");
                         }
                     };
                 });

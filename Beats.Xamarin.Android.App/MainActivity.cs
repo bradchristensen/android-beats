@@ -1,19 +1,23 @@
 ﻿using Android.App;
+using Android.Content;
 using Android.Content.Res;
 using Android.OS;
 using Android.Support.V4.App;
 using Android.Support.V4.Widget;
 using Android.Views;
+using Beats.Xamarin.Droid.App.Services;
 using Beats.Xamarin.Droid.App.Views;
 using Fragment = Android.App.Fragment;
 
 namespace Beats.Xamarin.Droid.App
 {
     [Activity(Label = "@string/ApplicationName", MainLauncher = true, Icon = "@drawable/icon")]
-    public class MainActivity : Activity
+    public class MainActivity : AudioServiceConnectedActivity
     {
         private DrawerLayout _drawerLayout;
         private ActionBarDrawerToggle _drawerToggle;
+
+        private AudioServiceConnection _serviceConnection;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -38,6 +42,26 @@ namespace Beats.Xamarin.Droid.App
             );
 
             _drawerLayout.AddDrawerListener(_drawerToggle);
+        }
+
+        protected override void OnStart()
+        {
+            base.OnStart();
+
+            var intent = new Intent(this, typeof(AudioService));
+            _serviceConnection = new AudioServiceConnection(this);
+            BindService(intent, _serviceConnection, Bind.AutoCreate);
+        }
+
+        protected override void OnStop()
+        {
+            base.OnStop();
+
+            if (IsBound)
+            {
+                UnbindService(_serviceConnection);
+                IsBound = false;
+            }
         }
 
         private class MyActionBarDrawerToggle : ActionBarDrawerToggle

@@ -9,8 +9,8 @@
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Beats.Xamarin.Android.App</RootNamespace>
-    <AssemblyName>Beats.Xamarin.Android.App</AssemblyName>
+    <RootNamespace>Beats.Xamarin.Droid.App</RootNamespace>
+    <AssemblyName>Beats.Xamarin.Droid.App</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <AndroidApplication>true</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
@@ -100,9 +100,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Services\AudioService.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AudioServiceBinder.cs" />
+    <Compile Include="Services\AudioServiceConnection.cs" />
+    <Compile Include="Services\AudioServiceConnectedActivity.cs" />
     <Compile Include="Views\DirectoryListFragment.cs" />
     <Compile Include="Views\LoginFragment.cs" />
   </ItemGroup>

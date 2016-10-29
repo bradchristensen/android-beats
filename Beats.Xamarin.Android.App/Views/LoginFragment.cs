@@ -89,7 +89,7 @@ namespace Beats.Xamarin.Droid.App.Views
                     loginButton.Text = "Logged in!";
                     loginButton.Enabled = false;
 
-                    ((MainActivity)Activity).ReplaceFragment(new DirectoryListFragment());
+                    ((App.MainActivity)Activity).ReplaceFragment(new DirectoryListFragment());
                 }
                 catch (LoginFailedException)
                 {
